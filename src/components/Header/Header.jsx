@@ -1,4 +1,3 @@
-import './Header.sass';
 import {ReactComponent as IconBasket} from "./../../img/icons/basket.svg";
 import {ReactComponent as IconSearch} from "./../../img/icons/search.svg";
 
