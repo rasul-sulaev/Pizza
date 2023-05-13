@@ -1,0 +1,21 @@
+.categories
+  &__list
+    margin: 0
+    padding: 0
+    list-style-type: none
+    display: flex
+    gap: 10px
+    &-item
+      padding: 16px 35px
+      color: $dark
+      font-weight: 700
+      line-height: 1
+      border-radius: 30px
+      background-color: $gray
+      cursor: pointer
+      &:hover
+        background-color: darken($gray, 7.5%)
+      &.active
+        color: #ffffff
+        background-color: $dark
+        pointer-events: none

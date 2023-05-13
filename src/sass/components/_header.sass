@@ -1,5 +1,3 @@
-@import "../vars"
-
 .header
   padding: 50px
   display: flex
@@ -8,20 +6,23 @@
   gap: 100px
   border-bottom: 1px solid $gray
   &__logo
+    color: $dark
     text-decoration: none
     line-height: 1
     display: flex
     flex-shrink: 0
     gap: 17px
+    &:hover
+      color: $orange
     &-img
       width: auto
       height: auto
       object-fit: scale-down
     &-title
       margin: 0
-      color: $dark
       font-size: 24px
       font-weight: 800
+      transition: none
     &-description
       color: $grayText2
       font-size: 16px

@@ -1,5 +1,5 @@
-import {ReactComponent as IconBasket} from "./../../img/icons/basket.svg";
-import {ReactComponent as IconSearch} from "./../../img/icons/search.svg";
+import {ReactComponent as IconBasket} from "../../assets/icons/basket.svg";
+import {ReactComponent as IconSearch} from "../../assets/icons/search.svg";
 
 export const Header = () => {
 	return (
