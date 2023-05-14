@@ -17,16 +17,16 @@ const Card = ({
 			<p className="card__title">{name}</p>
 			<div className="card__choice" onClick={(e) => e.preventDefault()}>
 				<ul className="card__selector">
-					{types.map((type, index) => <li
-						key={index}
+					{types.map(type => <li
+						key={type}
 						className={type.name === selectedType ? 'card__selector-option card__selector-option_active' : 'card__selector-option'}
 						onClick={() => setSelectedType(type.name)}
 						disabled={!type.stock && 'disabled'}
 					>{type.name}</li>)}
 				</ul>
 				<ul className="card__selector">
-					{sizes.map((size, index) => <li
-						key={index}
+					{sizes.map(size => <li
+						key={size}
 						className={size.name === selectedSize ? 'card__selector-option card__selector-option_active' : 'card__selector-option'}
 						onClick={() => setSelectedSize(size.name)}
 						disabled={!size.stock && 'disabled'}
