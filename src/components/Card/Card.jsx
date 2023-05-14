@@ -1,24 +1,36 @@
 import {ReactComponent as IconPlus} from "../../assets/icons/plus.svg";
+import {useState} from "react";
 
 const Card = ({
-	title,
 	img,
+	name,
+	types,
+	sizes,
 	price
 }) => {
+	const [selectedType, setSelectedType] = useState(types.filter(type => type.stock)[0].name);
+	const [selectedSize, setSelectedSize] = useState(sizes.filter(size => size.stock)[0].name);
+
 	return (
 		<a className="card" href="/">
-			<img className="card__img" width={img.width} height={img.height} src={img.url} alt={img.alt}/>
-			<p className="card__title">{title}</p>
+			<img className="card__img" width={260} height={260} src={`./img/items/${img.url}`} alt={img.alt}/>
+			<p className="card__title">{name}</p>
 			<div className="card__choice" onClick={(e) => e.preventDefault()}>
 				<ul className="card__selector">
-					<li className="card__selector-option card__selector-option_active">тонкое</li>
-					<li className="card__selector-option">традиционное</li>
-					{/*<li className="card__selector-option" disabled>традиционное</li>*/}
+					{types.map((type, index) => <li
+						key={index}
+						className={type.name === selectedType ? 'card__selector-option card__selector-option_active' : 'card__selector-option'}
+						onClick={() => setSelectedType(type.name)}
+						disabled={!type.stock && 'disabled'}
+					>{type.name}</li>)}
 				</ul>
 				<ul className="card__selector">
-					<li className="card__selector-option card__selector-option_active">26 см.</li>
-					<li className="card__selector-option">30 см.</li>
-					<li className="card__selector-option">40 см.</li>
+					{sizes.map((size, index) => <li
+						key={index}
+						className={size.name === selectedSize ? 'card__selector-option card__selector-option_active' : 'card__selector-option'}
+						onClick={() => setSelectedSize(size.name)}
+						disabled={!size.stock && 'disabled'}
+					>{size.name}</li>)}
 				</ul>
 			</div>
 			<div className="card__bottom">

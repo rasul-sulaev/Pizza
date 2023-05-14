@@ -1,0 +1,134 @@
+[
+  {
+    "id": 1,
+    "imgUrl": "pizza1.png",
+    "imgAlt": "Пицца-Чизбургер",
+    "name": "Пицца-Чизбургер",
+    "types": [
+      {
+        "name": "тонкое",
+        "stock": 1
+      },
+      {
+        "name": "традиционное",
+        "stock": 1
+      }
+    ],
+    "sizes": [
+      {
+        "name": 26,
+        "stock": 1
+      },
+      {
+        "name": 30,
+        "stock": 1
+      },
+      {
+        "name": 40,
+        "stock": 1
+      }
+    ],
+    "price": 395,
+    "category_id": 0,
+    "rating": 4.6
+  },
+  {
+    "id": 2,
+    "imgUrl": "pizza2.png",
+    "imgAlt": "Сырная",
+    "name": "Сырная",
+    "types": [
+      {
+        "name": "тонкое",
+        "stock": 1
+      },
+      {
+        "name": "традиционное",
+        "stock": 1
+      }
+    ],
+    "sizes": [
+      {
+        "name": 26,
+        "stock": 1
+      },
+      {
+        "name": 30,
+        "stock": 0
+      },
+      {
+        "name": 40,
+        "stock": 0
+      }
+    ],
+    "price": 450,
+    "category_id": 0,
+    "rating": 4.3
+  },
+  {
+    "id": 3,
+    "imgUrl": "pizza3.png",
+    "imgAlt": "Креветки по-азиатски",
+    "name": "Креветки по-азиатски",
+    "types": [
+      {
+        "name": "тонкое",
+        "stock": 1
+      },
+      {
+        "name": "традиционное",
+        "stock": 0
+      }
+    ],
+    "sizes": [
+      {
+        "name": 26,
+        "stock": 0
+      },
+      {
+        "name": 30,
+        "stock": 1
+      },
+      {
+        "name": 40,
+        "stock": 0
+      }
+    ],
+    "price": 290,
+    "category_id": 0,
+    "rating": 3.5
+  },
+  {
+    "id": 4,
+    "imgUrl": "pizza4.png",
+    "imgAlt": "Сырный цыпленок",
+    "name": "Сырный цыпленок",
+    "types": [
+      {
+        "name": "тонкое",
+        "stock": 1
+      },
+      {
+        "name": "традиционное",
+        "stock": 1
+      }
+    ],
+    "sizes": [
+      {
+        "name": 26,
+        "stock": 1
+      },
+      {
+        "name": 30,
+        "stock": 1
+      },
+      {
+        "name": 40,
+        "stock": 1
+      }
+    ],
+    "price": 385,
+    "category_id": 0,
+    "rating": 5
+  }
+]

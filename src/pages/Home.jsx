@@ -1,5 +1,6 @@
 import Categories from "../components/Categories";
 import Card from "../components/Card/Card";
+import items from "../data/items.json";
 
 const Home = () => {
 	return (
@@ -11,16 +12,14 @@ const Home = () => {
 				<h2 className="section__header-title">Все пиццы</h2>
 			</div>
 			<div className="cards-list">
-				<Card
-					title={"Название"}
+				{items.map(item => <Card
+					key={item.id}
+					{...item}
 					img={{
-						weight: 260,
-						height: 260,
-						url: './img/items/pizza1.png',
-						alt: 'Описание картинки'
+						url: item.imgUrl,
+						alt: item.imgAlt
 					}}
-					price={500}
-				/>
+				/> )}
 			</div>
 		</section>
 	)

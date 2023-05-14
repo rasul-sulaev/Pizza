@@ -10,14 +10,13 @@
     padding: 0 0 0 10px
     width: 260px
     height: 260px
-    //width: 100%
-    //height: auto
     object-fit: scale-down
   &__title
     margin: 12px 0 22px
     font-size: 20px
-    font-weight: 800
+    font-weight: 700
     text-align: center
+    letter-spacing: 0.01em
     line-height: 1
   &__choice
     padding: 6px
@@ -26,6 +25,7 @@
     gap: 7px
     border-radius: 10px
     background-color: $gray2
+    cursor: default
   &__selector
     margin: 0
     padding: 0
@@ -36,19 +36,19 @@
       padding: 8px 10px
       width: 100%
       font-size: 14px
-      font-weight: 400
+      font-weight: 600
       text-align: center
       border-radius: 5px
       cursor: pointer
-      &:hover
-        &:not(_active)
-          background-color: darken($gray, 10%)
+      &:hover:not(&_active)
+        background-color: darken($gray, 10%)
       &_active
         background-color: #ffffff
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04)
         pointer-events: none
       &[disabled]
         color: $grayText
+        cursor: default
         pointer-events: none
   &__bottom
     margin-top: 18px
@@ -59,11 +59,12 @@
   &__price
     font-size: 22px
     font-weight: 700
+    letter-spacing: 0.01em
   &__btn-add
     padding: 10px 14px
     color: $orange
     font-size: 16px
-    font-weight: 700
+    font-weight: 600
     display: flex
     align-items: center
     gap: 10px
