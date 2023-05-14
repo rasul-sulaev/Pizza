@@ -1,10 +1,14 @@
 import {ReactComponent as IconPlus} from "../../assets/icons/plus.svg";
 
-const Card = () => {
+const Card = ({
+	title,
+	img,
+	price
+}) => {
 	return (
 		<a className="card" href="/">
-			<img className="card__img" src="https://pizza.muhammadsalam.ml/img/pizzas/pizza-3.png" alt=""/>
-			<p className="card__title">Чизбургер-пицца</p>
+			<img className="card__img" width={img.width} height={img.height} src={img.url} alt={img.alt}/>
+			<p className="card__title">{title}</p>
 			<div className="card__choice" onClick={(e) => e.preventDefault()}>
 				<ul className="card__selector">
 					<li className="card__selector-option card__selector-option_active">тонкое</li>
@@ -18,7 +22,7 @@ const Card = () => {
 				</ul>
 			</div>
 			<div className="card__bottom">
-				<span className="card__price">от 395 ₽</span>
+				<span className="card__price">от {price} ₽</span>
 				<button className="card__btn-add">
 					<IconPlus width={12} height={12} fill={"currentColor"} />
 					Добавить

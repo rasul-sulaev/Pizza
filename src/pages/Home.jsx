@@ -11,12 +11,16 @@ const Home = () => {
 				<h2 className="section__header-title">Все пиццы</h2>
 			</div>
 			<div className="cards-list">
-				<Card />
-				<Card />
-				<Card />
-				<Card />
-				<Card />
-				<Card />
+				<Card
+					title={"Название"}
+					img={{
+						weight: 260,
+						height: 260,
+						url: 'https://pizza.muhammadsalam.ml/img/pizzas/pizza-3.png',
+						alt: 'Описание картинки'
+					}}
+					price={500}
+				/>
 			</div>
 		</section>
 	)
