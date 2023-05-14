@@ -1,7 +1,7 @@
-import {Categories} from "../components/Categories";
-import {Card} from "../components/Card/Card";
+import Categories from "../components/Categories";
+import Card from "../components/Card/Card";
 
-export const Home = () => {
+const Home = () => {
 	return (
 		<section className="home section">
 			<div className="home__filter">
@@ -21,3 +21,5 @@ export const Home = () => {
 		</section>
 	)
 }
+
+export default Home;

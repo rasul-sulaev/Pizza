@@ -1,4 +1,4 @@
-export const Categories = () => {
+const Categories = () => {
 	return (
 		<nav className="categories">
 			<ul className="categories__list">
@@ -12,3 +12,5 @@ export const Categories = () => {
 		</nav>
 	)
 }
+
+export default Categories;

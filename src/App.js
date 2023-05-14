@@ -1,6 +1,6 @@
 import './sass/style.sass';
-import {Header} from "./components/Header/Header";
-import {Home} from "./pages/Home";
+import Header from "./components/Header/Header";
+import Home from "./pages/Home";
 
 export const App = () => {
   return (

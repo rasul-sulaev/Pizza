@@ -1,7 +1,7 @@
 import {ReactComponent as IconBasket} from "../../assets/icons/basket.svg";
 import {ReactComponent as IconSearch} from "../../assets/icons/search.svg";
 
-export const Header = () => {
+const Header = () => {
 	return (
 		<header className="header">
 			<a className="header__logo" href="/">
@@ -31,3 +31,5 @@ export const Header = () => {
 		</header>
 	)
 }
+
+export default Header;

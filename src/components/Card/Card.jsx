@@ -1,6 +1,6 @@
 import {ReactComponent as IconPlus} from "../../assets/icons/plus.svg";
 
-export const Card = () => {
+const Card = () => {
 	return (
 		<a className="card" href="/">
 			<img className="card__img" src="https://pizza.muhammadsalam.ml/img/pizzas/pizza-3.png" alt=""/>
@@ -28,3 +28,5 @@ export const Card = () => {
 		</a>
 	)
 }
+
+export default Card;
