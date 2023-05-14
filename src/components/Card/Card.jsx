@@ -18,7 +18,7 @@ const Card = ({
 			<div className="card__choice" onClick={(e) => e.preventDefault()}>
 				<ul className="card__selector">
 					{types.map(type => <li
-						key={type}
+						key={type.name}
 						className={type.name === selectedType ? 'card__selector-option card__selector-option_active' : 'card__selector-option'}
 						onClick={() => setSelectedType(type.name)}
 						disabled={!type.stock && 'disabled'}
@@ -26,7 +26,7 @@ const Card = ({
 				</ul>
 				<ul className="card__selector">
 					{sizes.map(size => <li
-						key={size}
+						key={size.name}
 						className={size.name === selectedSize ? 'card__selector-option card__selector-option_active' : 'card__selector-option'}
 						onClick={() => setSelectedSize(size.name)}
 						disabled={!size.stock && 'disabled'}
