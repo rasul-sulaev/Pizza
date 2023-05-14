@@ -35,11 +35,14 @@
     &-option
       padding: 8px 10px
       width: 100%
-      font-size: 16px
-      font-weight: 700
+      font-size: 14px
+      font-weight: 400
       text-align: center
       border-radius: 5px
       cursor: pointer
+      &:hover
+        &:not(_active)
+          background-color: darken($gray, 10%)
       &_active
         background-color: #ffffff
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04)

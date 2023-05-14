@@ -13,9 +13,9 @@
       border-radius: 30px
       background-color: $gray
       cursor: pointer
-      &:hover
-        background-color: darken($gray, 7.5%)
-      &.active
+      &_active
         color: #ffffff
         background-color: $dark
         pointer-events: none
+      &:hover(:not(_active))
+        background-color: darken($gray, 7.5%)

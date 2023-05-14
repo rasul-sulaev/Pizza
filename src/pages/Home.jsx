@@ -16,7 +16,7 @@ const Home = () => {
 					img={{
 						weight: 260,
 						height: 260,
-						url: 'https://pizza.muhammadsalam.ml/img/pizzas/pizza-3.png',
+						url: './img/items/pizza1.png',
 						alt: 'Описание картинки'
 					}}
 					price={500}

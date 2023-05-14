@@ -1,13 +1,46 @@
+import {useState} from "react";
+
+const categories = [
+	{
+		id: 1,
+		name: 'Все'
+	},
+	{
+		id: 2,
+		name: 'Мясные'
+	},
+	{
+		id: 3,
+		name: 'Вегетарианская'
+	},
+	{
+		id: 4,
+		name: 'Гриль'
+	},
+	{
+		id: 5,
+		name: 'Острые'
+	},
+	{
+		id: 6,
+		name: 'Закрытые'
+	}
+];
+
+
 const Categories = () => {
+	const [selectedCategory, setSelectedCategory] = useState(1);
+
 	return (
 		<nav className="categories">
 			<ul className="categories__list">
-				<li className="categories__list-item active">Все</li>
-				<li className="categories__list-item">Мясные</li>
-				<li className="categories__list-item">Вегетарианская</li>
-				<li className="categories__list-item">Гриль</li>
-				<li className="categories__list-item">Острые</li>
-				<li className="categories__list-item">Закрытые</li>
+				{categories.map((category) =>
+					<li
+						key={category.id}
+						className={category.id === selectedCategory ? 'categories__list-item categories__list-item_active' : 'categories__list-item'}
+						onClick={() => setSelectedCategory(category.id)}
+					>{category.name}</li>
+				)}
 			</ul>
 		</nav>
 	)
