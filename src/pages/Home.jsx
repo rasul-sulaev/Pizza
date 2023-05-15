@@ -35,7 +35,7 @@ const Home = () => {
 			</div>
 			<div className="cards-list">
 				{isLoading ? (
-					[...new Array(4)].map((_, i) => <CardSkeleton key={i} />)
+					[...new Array(4)].map((_, index) => <CardSkeleton key={index} />)
 				) : (
 					items.map(item =>
 						<Card
