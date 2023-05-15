@@ -16,7 +16,7 @@ const Home = () => {
 				console.log(error);
 			}
 		})()
-	})
+	}, [])
 
 	return (
 		<section className="home section">
