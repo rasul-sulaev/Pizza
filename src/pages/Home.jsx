@@ -16,6 +16,7 @@ const Home = () => {
 				await axios.get(`${process.env.REACT_APP_API_URL}/items`)
 					.then(res => setItems(prev => res.data))
 			} catch (error) {
+				alert(error);
 				console.log(error);
 			}
 
@@ -34,7 +35,7 @@ const Home = () => {
 			</div>
 			<div className="cards-list">
 				{isLoading ? (
-					[...Array(4)].map((_, i) => <CardSkeleton key={i} />)
+					[...new Array(4)].map((_, i) => <CardSkeleton key={i} />)
 				) : (
 					items.map(item =>
 						<Card
