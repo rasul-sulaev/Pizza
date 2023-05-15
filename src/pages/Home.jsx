@@ -1,9 +1,23 @@
 import Categories from "../components/Categories";
 import Card from "../components/Card/Card";
-import items from "../data/items.json";
 import Sort from "../components/Sort";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 const Home = () => {
+	const [items, setItems] = useState([]);
+
+	useEffect(() => {
+		(async () => {
+			try {
+				await axios.get(`${process.env.REACT_APP_API_URL}/items`)
+					.then(res => setItems(prev => res.data))
+			} catch (error) {
+				console.log(error);
+			}
+		})()
+	})
+
 	return (
 		<section className="home section">
 			<div className="home__filter">
