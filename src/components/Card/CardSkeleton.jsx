@@ -4,8 +4,9 @@ const CardSkeleton = () => {
 	return (
 		<div className="card">
 			<ContentLoader
+				style={{margin: '0 auto'}}
 				speed={2}
-				width={280}
+				width={'100%'}
 				height={462}
 				viewBox="0 0 280 462"
 				backgroundColor="#f3f3f3"
