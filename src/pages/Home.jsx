@@ -7,20 +7,20 @@ import CardSkeleton from "../components/Card/CardSkeleton";
 
 const Home = () => {
 	const [items, setItems] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
 		(async () => {
 			try {
-				setIsLoading(true);
 				await axios.get(`${process.env.REACT_APP_API_URL}/items`)
-					.then(res => setItems(prev => res.data))
+					.then(res => {
+						setItems(prev => res.data)
+						setIsLoading(false);
+					})
 			} catch (error) {
 				alert(error);
 				console.log(error);
 			}
-
-			setIsLoading(false);
 		})()
 	}, [])
 
