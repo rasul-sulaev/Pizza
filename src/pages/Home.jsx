@@ -1,12 +1,14 @@
 import Categories from "../components/Categories";
 import Card from "../components/Card/Card";
 import items from "../data/items.json";
+import Sort from "../components/Sort";
 
 const Home = () => {
 	return (
 		<section className="home section">
 			<div className="home__filter">
 				<Categories />
+				<Sort />
 			</div>
 			<div className="section__header">
 				<h2 className="section__header-title">Все пиццы</h2>

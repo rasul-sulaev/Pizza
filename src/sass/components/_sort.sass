@@ -1,0 +1,78 @@
+.sort
+  position: relative
+  &__title
+    margin: 0
+    font-size: 14px
+    font-weight: 700
+  &__current
+    color: $orange
+    font-weight: 400
+    display: inline-flex
+    align-items: center
+    gap: 5px
+    border-bottom: 1px dotted $orange
+    cursor: pointer
+    &:after
+      content: ""
+      width: 8px
+      height: 5px
+      display: inline-block
+      background-color: $orange
+      mask: url("../../assets/icons/arrow-top.svg") 100% no-repeat
+    &_desc
+      &:after
+        transform: rotate(0.5turn)
+    &_asc
+      &:after
+        transform: rotate(0turn)
+  &__select
+    margin-top: 12px
+    width: fit-content
+    position: absolute
+    top: 100%
+    right: 0
+    display: grid
+    grid-template-rows: 0fr
+    z-index: 1
+    &_open
+      grid-template-rows: 1fr
+    &-inner
+      margin: 0
+      padding: 0
+      width: fit-content
+      min-width: 150px
+      list-style-type: none
+      border-radius: 10px
+      background-color: #ffffff
+      box-shadow: $boxShadow
+      overflow: hidden
+    &-option
+      padding: 10px
+      display: flex
+      align-items: center
+      gap: 8px
+      cursor: pointer
+      letter-spacing: 0.01em
+      &_selected
+        color: $orange
+        font-weight: 700
+        background-color: rgba($orange, .05)
+      &:hover:not(&_selected)
+        background-color: $gray
+      &:first-child
+        margin-top: 10px
+      &:last-child
+        margin-bottom: 10px
+      &:before
+        content: ""
+        width: 10px
+        height: 6px
+        display: inline-block
+        transform: rotate(0.25turn)
+        background: url("../../assets/icons/arrow-top.svg") 100% no-repeat
+      &_desc
+        &:before
+          transform: rotate(0.5turn)
+      &_asc
+        &:before
+          transform: rotate(0turn)
