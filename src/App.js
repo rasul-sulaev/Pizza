@@ -12,7 +12,7 @@ export const App = () => {
 			<main className="content">
 				<Routes>
 					<Route path="/" element={<Home />} />
-					<Route path="cart" element={<Cart />} />
+					<Route path="/cart" element={<Cart />} />
 					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</main>
