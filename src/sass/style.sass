@@ -22,6 +22,40 @@ svg
   & > *
     transition: none
 
+.btn
+  padding: 0 35px
+  height: 50px
+  width: fit-content
+  color: #ffffff
+  font-size: 16px
+  font-weight: 700
+  display: flex
+  align-items: center
+  gap: 14px
+  border: 1px solid $orange
+  border-radius: 30px
+  background-color: $orange
+  cursor: pointer
+  &:hover
+    border-color: $dark
+    background-color: $dark
+  &_black
+    color: #ffffff
+    border-color: $dark
+    background-color: $dark
+    &:hover
+      color: $dark
+      background-color: transparent
+  &_gray-outline
+    color: $grayText
+    font-weight: 400
+    border-color: $grayText
+    background-color: transparent
+    &:hover
+      color: $dark
+      border-color: $dark
+      background-color: transparent
+
 .wrapper
   margin: 50px auto
   max-width: 1340px
