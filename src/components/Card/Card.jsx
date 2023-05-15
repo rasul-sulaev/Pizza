@@ -38,7 +38,7 @@ const Card = ({
 				<button className="card__btn-add">
 					<IconPlus width={12} height={12} fill={"currentColor"} />
 					Добавить
-					<span className="count">2</span>
+					{/*<span className="count">2</span>*/}
 				</button>
 			</div>
 		</a>
