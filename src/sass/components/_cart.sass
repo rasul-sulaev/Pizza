@@ -2,6 +2,107 @@
   flex-grow: 1
   display: flex
   flex-direction: column
+  &__header
+    display: flex
+    align-items: baseline
+    justify-content: space-between
+    &-title
+      margin: 0
+      color: $dark
+      display: inline-flex
+      gap: 14px
+      line-height: 1
+    &-btn
+      color: $grayText
+      font-size: 16px
+      display: inline-flex
+      align-items: center
+      gap: 7px
+      border: none
+      background-color: transparent
+      cursor: pointer
+      &:hover
+        color: $orange
+  &__inner
+    margin: 0 auto
+    padding: 30px 0 10px
+    max-width: 820px
+    width: 100%
+    flex-grow: 1
+    display: flex
+    flex-direction: column
+  &__list
+    margin: 40px 0
+  &__item
+    padding: 12px 0
+    line-height: 1
+    display: grid
+    grid-template-columns: auto 1fr auto 0.5fr auto
+    gap: 15px
+    align-items: center
+    justify-content: space-between
+    border-top: 1px solid $gray2
+    &-img
+      vertical-align: middle
+    &-title
+      margin: 0 0 3px
+      font-size: 22px
+      font-weight: 700
+    &-details
+      color: $grayText2
+      font-size: 18px
+    &-price
+      font-size: 22px
+      font-weight: 700
+      text-align: center
+    &-controls
+      display: flex
+      align-items: center
+      gap: 12px
+    &-count
+      min-width: 26px
+      text-align: center
+      font-size: 22px
+      font-weight: 700
+      display: inline-block
+    &-btn
+      width: 32px
+      height: 32px
+      color: $orange
+      display: inline-flex
+      align-items: center
+      justify-content: center
+      border: 2px solid $orange
+      border-radius: 50%
+      background-color: transparent
+      cursor: pointer
+      &:hover
+        color: #ffffff
+        background-color: $orange
+      &_delete
+        color: $grayText
+        border-color: $grayText
+        &:hover
+          color: #ffffff
+          background-color: $grayText
+  &__bottom
+    margin-top: auto
+    .cart-total
+      &__list
+        margin: 0
+        padding: 0
+        list-style-type: none
+        display: grid
+        grid-template-columns: repeat(2, 1fr)
+        grid-gap: 12px
+        &-item
+          font-size: 22px
+          &:nth-child(2n)
+            text-align: right
+    &-btns-block
+      margin-top: 40px
+      display: flex
+      justify-content: space-between
   &-empty
     margin: auto
     width: fit-content
