@@ -40,6 +40,8 @@ svg
   border-radius: 30px
   background-color: $orange
   cursor: pointer
+  svg
+    transition: transform 200ms ease-in-out
   &:hover
     border-color: $dark
     background-color: $dark
@@ -59,6 +61,8 @@ svg
       color: $dark
       border-color: $dark
       background-color: transparent
+      svg
+        transform: translateX(-4px)
 
 .wrapper
   margin: 50px auto

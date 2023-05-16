@@ -76,6 +76,10 @@
       border-radius: 50%
       background-color: transparent
       cursor: pointer
+      transition: all 100ms ease-in-out
+      will-change: transform
+      &:active
+        transform: translateY(-2px)
       &:hover
         color: #ffffff
         background-color: $orange
@@ -84,7 +88,8 @@
         border-color: $grayText
         &:hover
           color: #ffffff
-          background-color: $grayText
+          border-color: $dark
+          background-color: $dark
   &__bottom
     margin-top: auto
     .cart-total
