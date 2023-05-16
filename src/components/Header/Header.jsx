@@ -25,7 +25,12 @@ const Header = () => {
 				<span className="header__cart-price">520 руб</span>
 				<span className="header__cart-separator"></span>
 				<span className="header__cart-count">
-					<IconBasket />
+					<IconBasket
+						width={16}
+						height={16}
+						stroke={"currentColor"}
+						strokeWidth={2}
+					/>
 					0
 				</span>
 			</Link>

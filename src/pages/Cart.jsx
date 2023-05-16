@@ -23,6 +23,7 @@ const Cart = () => {
 								width={29}
 								height={29}
 								stroke={"currentColor"}
+								strokeWidth={1.8}
 							/>
 							Корзина
 						</h2>
