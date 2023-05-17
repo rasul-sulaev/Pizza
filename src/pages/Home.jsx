@@ -21,19 +21,15 @@ const Home = ({searchValue}) => {
 		(async () => {
 			try {
 				setIsLoading(true);
-				if (searchValue) {
-					await axios.get(`${process.env.REACT_APP_API_URL}/items/?name=${searchValue}&category_id=${selectedCategoryId === 1 ? '' : selectedCategoryId}&sortBy=${sortBy}&order=${sortOrder}`)
-						.then(res => {
-							setItems(prev => res.data)
-							setIsLoading(false);
-						})
-				} else {
-					await axios.get(`${process.env.REACT_APP_API_URL}/items/?category_id=${selectedCategoryId === 1 ? '*' : selectedCategoryId}&sortBy=${sortBy}&order=${sortOrder}`)
-						.then(res => {
-							setItems(prev => res.data)
-							setIsLoading(false);
-						})
-				}
+				const APIQuery = searchValue ?
+					`${process.env.REACT_APP_API_URL}/items/?name=${searchValue}&category_id=${selectedCategoryId === 1 ? '' : selectedCategoryId}&sortBy=${sortBy}&order=${sortOrder}` :
+					`${process.env.REACT_APP_API_URL}/items/?category_id=${selectedCategoryId === 1 ? '*' : selectedCategoryId}&sortBy=${sortBy}&order=${sortOrder}`;
+
+				await axios.get(APIQuery)
+					.then(res => {
+						setItems(prev => res.data)
+						setIsLoading(false);
+					})
 			} catch (error) {
 				alert(error);
 				console.log(error);
