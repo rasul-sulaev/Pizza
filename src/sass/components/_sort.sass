@@ -48,11 +48,12 @@
       overflow: hidden
     &-option
       padding: 10px
+      letter-spacing: 0.01em
+      white-space: nowrap
       display: flex
       align-items: center
       gap: 8px
       cursor: pointer
-      letter-spacing: 0.01em
       &_selected
         color: $orange
         font-weight: 700
@@ -67,6 +68,7 @@
         content: ""
         width: 10px
         height: 6px
+        flex-shrink: 0
         display: inline-block
         transform: rotate(0.25turn)
         background: url("../../assets/icons/arrow-top.svg") 100% no-repeat
