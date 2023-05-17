@@ -12,7 +12,7 @@ const Home = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [selectedCategoryId, setSelectedCategoryId] = useState(1);
 	const [selectOpen, setSelectOpen] = useState(false);
-	const [selected, setSelected] = useState(sort[0]);
+	const [selectedOptionSort, setSelectedOptionSort] = useState(sort[0]);
 	const [sortBy, setSortBy] = useState('rating');
 	const [sortOrder, setSortOrder] = useState('desc')
 
@@ -45,7 +45,7 @@ const Home = () => {
 			setSortOrder('desc');
 		}
 
-		setSelected(sortItem);
+		setSelectedOptionSort(sortItem);
 		setSelectOpen(false);
 	}
 
@@ -59,9 +59,9 @@ const Home = () => {
 				/>
 				<Sort
 					sort={sort}
-					selected={selected}
 					selectOpen={selectOpen}
 					setSelectOpen={setSelectOpen}
+					selectedOptionSort={selectedOptionSort}
 					onSelectOption={onSelectOption}
 					sortOrder={sortOrder}
 				/>
