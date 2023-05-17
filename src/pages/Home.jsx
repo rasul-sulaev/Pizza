@@ -12,7 +12,7 @@ const Home = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [selectedCategoryId, setSelectedCategoryId] = useState(1);
 	const [selectOpen, setSelectOpen] = useState(false);
-	const [selected, setSelected] = useState(sort[0].value);
+	const [selected, setSelected] = useState(sort[0]);
 	const [sortBy, setSortBy] = useState('rating');
 	const [sortOrder, setSortOrder] = useState('desc')
 
@@ -35,17 +35,17 @@ const Home = () => {
 
 
 	/** Функция срабатывает при выборе варианта из выпадающего списка Сортировки
-	 * @param optionValue - в этот параметр передается value выбраного варианта
+	 * @param sortItem - в этот параметр передается object выбраного варианта сортировки
 	 * */
-	const onSelectOption = (optionValue) => {
-		if (optionValue === sortBy) {
+	const onSelectOption = (sortItem) => {
+		if (sortItem.value === sortBy) {
 			setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc');
 		} else {
-			setSortBy(optionValue);
+			setSortBy(sortItem.value);
 			setSortOrder('desc');
 		}
 
-		setSelected(optionValue);
+		setSelected(sortItem);
 		setSelectOpen(false);
 	}
 
