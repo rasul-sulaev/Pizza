@@ -7,7 +7,7 @@ import axios from "axios";
 import categories from "../data/categories.json";
 import sort from "../data/sort.json";
 
-const Home = () => {
+const Home = ({searchValue}) => {
 	const [items, setItems] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [selectedCategoryId, setSelectedCategoryId] = useState(1);
@@ -21,17 +21,25 @@ const Home = () => {
 		(async () => {
 			try {
 				setIsLoading(true);
-				await axios.get(`${process.env.REACT_APP_API_URL}/items/?category_id=${selectedCategoryId === 1 ? '*' : selectedCategoryId}&sortBy=${sortBy}&order=${sortOrder}`)
-					.then(res => {
-						setItems(prev => res.data)
-						setIsLoading(false);
-					})
+				if (searchValue) {
+					await axios.get(`${process.env.REACT_APP_API_URL}/items/?name=${searchValue}&category_id=${selectedCategoryId === 1 ? '' : selectedCategoryId}&sortBy=${sortBy}&order=${sortOrder}`)
+						.then(res => {
+							setItems(prev => res.data)
+							setIsLoading(false);
+						})
+				} else {
+					await axios.get(`${process.env.REACT_APP_API_URL}/items/?category_id=${selectedCategoryId === 1 ? '*' : selectedCategoryId}&sortBy=${sortBy}&order=${sortOrder}`)
+						.then(res => {
+							setItems(prev => res.data)
+							setIsLoading(false);
+						})
+				}
 			} catch (error) {
 				alert(error);
 				console.log(error);
 			}
 		})()
-	}, [selectedCategoryId, sortBy, sortOrder]);
+	}, [selectedCategoryId, sortBy, sortOrder, searchValue]);
 
 
 	/** Функция срабатывает при выборе варианта из выпадающего списка Сортировки
