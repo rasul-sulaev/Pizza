@@ -1,0 +1,34 @@
+.pagination
+  margin-top: 60px
+  padding: 0
+  list-style-type: none
+  display: flex
+  align-items: center
+  justify-content: center
+  gap: 8px
+  li
+    color: $dark
+    cursor: pointer
+    border-radius: 50%
+    will-change: transform
+    background-color: $gray2
+    &:hover
+      &:not(&.selected),
+      &:not(&.disabled)
+        background-color: $grayText
+    a
+      width: 40px
+      height: 40px
+      color: inherit
+      font-size: 16px
+      font-weight: 600
+      display: inline-flex
+      align-items: center
+      justify-content: center
+      transition: none
+    &.selected
+      color: #ffffff
+      background-color: $orange
+      pointer-events: none
+    &.disabled
+      pointer-events: none

@@ -6,6 +6,7 @@ import CardSkeleton from "../components/Card/CardSkeleton";
 import axios from "axios";
 import categories from "../data/categories.json";
 import sort from "../data/sort.json";
+import Pagination from "../components/Pagination";
 
 const Home = ({searchValue}) => {
 	const [items, setItems] = useState([]);
@@ -14,16 +15,25 @@ const Home = ({searchValue}) => {
 	const [selectOpen, setSelectOpen] = useState(false);
 	const [selectedOptionSort, setSelectedOptionSort] = useState(sort[0]);
 	const [sortBy, setSortBy] = useState('rating');
-	const [sortOrder, setSortOrder] = useState('desc')
+	const [sortOrder, setSortOrder] = useState('desc');
+
+	const [paginationCountPage, setPaginationCountPage] = useState(0);
+	const [paginationCurrentPage, setPaginationCurrentPage] = useState(1);
 
 
 	useEffect(() => {
 		(async () => {
 			try {
 				setIsLoading(true);
+
+				/** Запрос для получаения количество "товаров" в зависимости от выбранной категории **/
+				await axios.get(`${selectedCategoryId === 1 ? `${process.env.REACT_APP_API_URL}/items/` : `${process.env.REACT_APP_API_URL}/items/?category_id=${selectedCategoryId}`}`)
+					.then(res => setPaginationCountPage(Math.ceil(res.data.length / 4)));
+
+				/** Запрос для получения "товаров" в зависимсоти от картегрии, сортировки и выбранной страницы пагинации **/
 				const APIQuery = searchValue ?
 					`${process.env.REACT_APP_API_URL}/items/?name=${searchValue}&category_id=${selectedCategoryId === 1 ? '' : selectedCategoryId}&sortBy=${sortBy}&order=${sortOrder}` :
-					`${process.env.REACT_APP_API_URL}/items/?category_id=${selectedCategoryId === 1 ? '*' : selectedCategoryId}&sortBy=${sortBy}&order=${sortOrder}`;
+					`${process.env.REACT_APP_API_URL}/items/?category_id=${selectedCategoryId === 1 ? '*' : selectedCategoryId}&sortBy=${sortBy}&order=${sortOrder}&page=${paginationCurrentPage}&limit=4`;
 
 				await axios.get(APIQuery)
 					.then(res => {
@@ -35,7 +45,7 @@ const Home = ({searchValue}) => {
 				console.log(error);
 			}
 		})()
-	}, [selectedCategoryId, sortBy, sortOrder, searchValue]);
+	}, [selectedCategoryId, sortBy, sortOrder, searchValue, paginationCurrentPage]);
 
 
 	/** Функция срабатывает при выборе варианта из выпадающего списка Сортировки
@@ -89,6 +99,10 @@ const Home = ({searchValue}) => {
 					)
 				)}
 			</div>
+			<Pagination
+				paginationCountPage={paginationCountPage}
+				setPaginationCurrentPage={setPaginationCurrentPage}
+			/>
 		</section>
 	)
 }
