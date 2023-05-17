@@ -1,6 +1,6 @@
 import {ReactComponent as IconBasket} from "../../assets/icons/basket.svg";
-import {ReactComponent as IconSearch} from "../../assets/icons/search.svg";
 import {Link} from "react-router-dom";
+import Search from "./Search";
 
 const Header = () => {
 	return (
@@ -12,15 +12,7 @@ const Header = () => {
 					<span className="header__logo-description">самая вкусная пицца во вселенной</span>
 				</div>
 			</Link>
-			<div className="header__search">
-				<IconSearch
-					className="header__search-icon"
-					width={22}
-					heidth={22}
-					stroke={"currentColor"}
-				/>
-				<input className="header__search-input" type="text" placeholder="Поиск пиццы..."/>
-			</div>
+			<Search />
 			<Link className="header__cart" to="/cart">
 				<span className="header__cart-price">520 руб</span>
 				<span className="header__cart-separator"></span>
