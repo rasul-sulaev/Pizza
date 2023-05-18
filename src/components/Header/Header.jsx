@@ -2,10 +2,7 @@ import {ReactComponent as IconBasket} from "../../assets/icons/basket.svg";
 import {Link} from "react-router-dom";
 import Search from "./Search";
 
-const Header = ({
-	searchValue,
-	setSearchValue
-}) => {
+const Header = () => {
 	return (
 		<header className="header">
 			<Link className="header__logo" to="/">
@@ -15,10 +12,7 @@ const Header = ({
 					<span className="header__logo-description">самая вкусная пицца во вселенной</span>
 				</div>
 			</Link>
-			<Search
-				searchValue={searchValue}
-				setSearchValue={setSearchValue}
-			/>
+			<Search />
 			<Link className="header__cart" to="/cart">
 				<span className="header__cart-price">520 руб</span>
 				<span className="header__cart-separator"></span>

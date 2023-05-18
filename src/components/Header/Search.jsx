@@ -1,10 +1,10 @@
 import {ReactComponent as IconSearch} from "../../assets/icons/search.svg";
 import {ReactComponent as IconTimes} from "../../assets/icons/times.svg";
+import {useState} from "react";
 
-const Search = ({
-	searchValue,
-	setSearchValue
-}) => {
+const Search = () => {
+	const [searchValue, setSearchValue] = useState('');
+
 	return (
 		<div className="header__search">
 			<IconSearch

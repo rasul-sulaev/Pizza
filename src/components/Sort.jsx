@@ -1,11 +1,19 @@
-const Sort = ({
-	sort,
-	selectedOptionSort,
-	selectOpen,
-	setSelectOpen,
-	onSelectOption,
-	sortOrder
-}) => {
+import {useDispatch, useSelector} from "react-redux";
+import {setSort} from "../store/slices/filterSlice"
+import {useState} from "react";
+
+const Sort = () => {
+	const [selectOpen, setSelectOpen] = useState(false);
+
+	const {sort, selectedOptionSort, sortOrder} = useSelector(state => state.filter);
+	const dispatch = useDispatch();
+
+	/** Функция срабатывает при выборе варианта из сортировки **/
+	const onSelectOption = (item) => {
+		dispatch(setSort(item))
+		setSelectOpen(false);
+	}
+
 	return (
 		<div className="sort">
 			<p className="sort__title">Сортировка: <span

@@ -1,8 +1,10 @@
-const Categories = ({
-	categories,
-	selectedCategoryId,
-	setSelectedCategoryId
-}) => {
+import {useDispatch, useSelector} from "react-redux";
+import {setSelectedCategoryId} from "../store/slices/filterSlice";
+
+const Categories = () => {
+	const {categories, selectedCategoryId} = useSelector(state => state.filter);
+	const dispatch = useDispatch();
+
 	return (
 		<nav className="categories">
 			<ul className="categories__list">
@@ -10,7 +12,7 @@ const Categories = ({
 					<li
 						key={category.id}
 						className={category.id === selectedCategoryId ? 'categories__list-item categories__list-item_active' : 'categories__list-item'}
-						onClick={() => setSelectedCategoryId(category.id)}
+						onClick={() => dispatch(setSelectedCategoryId(category.id))}
 					>{category.name}</li>
 				)}
 			</ul>
