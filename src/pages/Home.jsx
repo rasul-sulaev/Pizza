@@ -9,69 +9,30 @@ import {fetchCategoryItems, fetchItemsByParams} from "../store/slices/itemsSlice
 import {setPaginationCountPages} from "../store/slices/filterSlice";
 
 const Home = () => {
-	const {isLoading, status, data, dataByParameters: items} = useSelector(state => state.items);
-	const {selectedCategoryId, sortBy, sortOrder, paginationCurrentPage} = useSelector(state => state.filter);
+	const {status, data, dataByParameters: items} = useSelector(state => state.items);
+	const {selectedCategoryId, sortBy, sortOrder, searchValue, paginationCurrentPage} = useSelector(state => state.filter);
 	const dispatch = useDispatch();
 
 	console.log(Math.ceil(data.length / 4));
 
 	useEffect(() => {
-		dispatch(fetchCategoryItems(selectedCategoryId));
+		const APIQuery = `${selectedCategoryId === 1 ? `${process.env.REACT_APP_API_URL}/items/` : `${process.env.REACT_APP_API_URL}/items/?category_id=${selectedCategoryId}`}`;
+
+		dispatch(fetchCategoryItems(APIQuery));
 	}, [selectedCategoryId]);
 
 	useEffect(() => {
-		dispatch(fetchItemsByParams());
+		const APIQuery = searchValue ?
+			`${process.env.REACT_APP_API_URL}/items/?name=${searchValue}&category_id=${selectedCategoryId === 1 ? '' : selectedCategoryId}&sortBy=${sortBy}&order=${sortOrder}` :
+			`${process.env.REACT_APP_API_URL}/items/?category_id=${selectedCategoryId === 1 ? '*' : selectedCategoryId}&sortBy=${sortBy}&order=${sortOrder}&page=${paginationCurrentPage}&limit=4`;
+
+		dispatch(fetchItemsByParams(APIQuery));
 		dispatch(setPaginationCountPages(Math.ceil(data.length / 4)));
-	}, [data, selectedCategoryId, sortBy, sortOrder, paginationCurrentPage]);
-
-
-	// useEffect(() => {
-	// 	(async () => {
-	// 		try {
-	// 			setIsLoading(true);
-	//
-	// 			/** Запрос для получаения количество "товаров" в зависимости от выбранной категории **/
-	// 			await axios.get(`${selectedCategoryId === 1 ? `${process.env.REACT_APP_API_URL}/items/` : `${process.env.REACT_APP_API_URL}/items/?category_id=${selectedCategoryId}`}`)
-	// 				.then(res => setPaginationCountPage(Math.ceil(res.data.length / 4)));
-	//
-	// 			/** Запрос для получения "товаров" в зависимсоти от картегрии, сортировки и выбранной страницы пагинации **/
-	// 			const APIQuery = searchValue ?
-	// 				`${process.env.REACT_APP_API_URL}/items/?name=${searchValue}&category_id=${selectedCategoryId === 1 ? '' : selectedCategoryId}&sortBy=${sortBy}&order=${sortOrder}` :
-	// 				`${process.env.REACT_APP_API_URL}/items/?category_id=${selectedCategoryId === 1 ? '*' : selectedCategoryId}&sortBy=${sortBy}&order=${sortOrder}&page=${paginationCurrentPage}&limit=4`;
-	//
-	// 			await axios.get(APIQuery)
-	// 				.then(res => {
-	// 					setItems(prev => res.data)
-	// 					setIsLoading(false);
-	// 				})
-	// 		} catch (error) {
-	// 			alert(error);
-	// 			console.log(error);
-	// 		}
-	// 	})()
-	// }, [selectedCategoryId, sortBy, sortOrder, searchValue, paginationCurrentPage]);
-
-	// useEffect(() => {
-	// 	(async () => {
-	// 		try {
-	// 			setIsLoading(true);
-	//
-	// 			await axios.get(`${process.env.REACT_APP_API_URL}/items/`)
-	// 				.then(res => {
-	// 					setItems(prev => res.data)
-	// 					setIsLoading(false);
-	// 				})
-	// 		} catch (error) {
-	// 			alert(error);
-	// 			console.log(error)
-	// 		}}
-	// 	)()
-	//  }, []);
+	}, [data, selectedCategoryId, sortBy, sortOrder, searchValue, paginationCurrentPage]);
 
 
 	return (
 		<section className="home section">
-			{/*<button onClick={() => useDispatch()}></button>*/}
 			<div className="home__filter">
 				<Categories />
 				<Sort />
@@ -80,10 +41,11 @@ const Home = () => {
 				<h2 className="section__header-title">Все пиццы</h2>
 			</div>
 			<div className="cards-list">
-				{/*{status === 'pending' ? (*/}
-				{isLoading ? (
+				{status === 'pending' && (
 					[...new Array(4)].map((_, index) => <CardSkeleton key={index} />)
-				) : (
+				)}
+
+				{status === 'fulfilled' && (
 					items.map(item =>
 						<Card
 							key={item.id}

@@ -11,6 +11,8 @@ const initialState = {
 	sortBy: sort[0].value,
 	sortOrder: 'desc',
 
+	searchValue: '',
+
 	paginationCountPages: 0,
 	paginationCurrentPage: 1,
 }
@@ -37,9 +39,13 @@ export const filterSlice = createSlice({
 		},
 		setPaginationCurrentPage(state, action) {
 			state.paginationCurrentPage = action.payload;
+		},
+		setSearchValue(state, action) {
+			console.log(action.payload)
+			state.searchValue = action.payload;
 		}
 	}
 });
 
-export const {setSelectedCategoryId, setSort, setPaginationCountPages, setPaginationCurrentPage} = filterSlice.actions;
+export const {setSelectedCategoryId, setSort, setPaginationCountPages, setPaginationCurrentPage, setSearchValue} = filterSlice.actions;
 export default filterSlice.reducer;

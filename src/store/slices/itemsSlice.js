@@ -3,9 +3,9 @@ import axios from "axios";
 
 export const fetchCategoryItems = createAsyncThunk(
 	'items/fetchCategoryItems',
-	async (selectedCategoryId) => {
+	async (APIQuery) => {
 		try {
-			const res = await axios.get(`${selectedCategoryId === 1 ? `${process.env.REACT_APP_API_URL}/items/` : `${process.env.REACT_APP_API_URL}/items/?category_id=${selectedCategoryId}`}`);
+			const res = await axios.get(APIQuery);
 			if (res.status === 200) {
 				return res.data;
 			}
@@ -17,9 +17,9 @@ export const fetchCategoryItems = createAsyncThunk(
 
 export const fetchItemsByParams = createAsyncThunk(
 	'items/fetchItemsByParams',
-	async () => {
+	async (APIQuery) => {
 		try {
-			const res = await axios.get(`${process.env.REACT_APP_API_URL}/items/`);
+			const res = await axios.get(APIQuery);
 			if (res.status === 200) {
 				return res.data;
 			}
@@ -35,11 +35,7 @@ const itemsSlice = createSlice({
 		data: [],
 		dataByParameters: [],
 		status: 'pending',
-		// isLoading: true,
 		error: null,
-	},
-	reducers: {
-
 	},
 	extraReducers: builder => {
 		builder
@@ -52,7 +48,6 @@ const itemsSlice = createSlice({
 			})
 			.addCase(fetchCategoryItems.rejected, (state, action) => {
 				state.error = action.error;
-				// state.isLoading = false;
 				state.status = 'rejected';
 			})
 
@@ -65,7 +60,6 @@ const itemsSlice = createSlice({
 				state.status = 'fulfilled';
 			})
 			.addCase(fetchItemsByParams.rejected, (state, action) => {
-				// state.dataByParameters = action.payload;
 				state.status = 'rejected';
 			})
 	}

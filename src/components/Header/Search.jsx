@@ -1,13 +1,16 @@
 import {ReactComponent as IconSearch} from "../../assets/icons/search.svg";
 import {ReactComponent as IconTimes} from "../../assets/icons/times.svg";
-import {useRef, useState} from "react";
+import {useRef} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {setSearchValue} from "../../store/slices/filterSlice"
 
 const Search = () => {
-	const [searchValue, setSearchValue] = useState('');
+	const {searchValue} = useSelector(state => state.filter)
+	const dispatch = useDispatch();
 	const inputRef = useRef();
 
 	const onClearInput = () => {
-		setSearchValue('');
+		dispatch(setSearchValue(''));
 		inputRef.current.focus()
 	}
 
@@ -22,7 +25,7 @@ const Search = () => {
 			<input
 				ref={inputRef}
 				value={searchValue}
-				onChange={(e) => setSearchValue(e.target.value)}
+				onChange={(e) => dispatch(setSearchValue(e.target.value))}
 				className="header__search-input"
 				type="text"
 				placeholder="Поиск пиццы..."
