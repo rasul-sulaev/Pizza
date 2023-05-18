@@ -4,8 +4,8 @@ import Home from "./pages/Home";
 import {Routes, Route} from "react-router-dom";
 import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
-export const App = () => {
 
+export const App = () => {
   return (
     <div className="wrapper">
 			<Header />
