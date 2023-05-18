@@ -1,19 +1,28 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import Categories from "../components/Categories";
 import Card from "../components/Card/Card";
 import Sort from "../components/Sort";
 import CardSkeleton from "../components/Card/CardSkeleton";
-import axios from "axios";
 import Pagination from "../components/Pagination";
 import {useDispatch, useSelector} from "react-redux";
+import {fetchCategoryItems, fetchItemsByParams} from "../store/slices/itemsSlice";
+import {setPaginationCountPages} from "../store/slices/filterSlice";
 
 const Home = () => {
-	// const {isLoading, items} = useSelector(state => state.items);
-	// const dispatch = useDispatch();
+	const {isLoading, status, data, dataByParameters: items} = useSelector(state => state.items);
+	const {selectedCategoryId, sortBy, sortOrder, paginationCurrentPage} = useSelector(state => state.filter);
+	const dispatch = useDispatch();
 
+	console.log(Math.ceil(data.length / 4));
 
-	const [items, setItems] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
+	useEffect(() => {
+		dispatch(fetchCategoryItems(selectedCategoryId));
+	}, [selectedCategoryId]);
+
+	useEffect(() => {
+		dispatch(fetchItemsByParams());
+		dispatch(setPaginationCountPages(Math.ceil(data.length / 4)));
+	}, [data, selectedCategoryId, sortBy, sortOrder, paginationCurrentPage]);
 
 
 	// useEffect(() => {
@@ -42,26 +51,27 @@ const Home = () => {
 	// 	})()
 	// }, [selectedCategoryId, sortBy, sortOrder, searchValue, paginationCurrentPage]);
 
-	useEffect(() => {
-		(async () => {
-			try {
-				setIsLoading(true);
-
-				await axios.get(`${process.env.REACT_APP_API_URL}/items/`)
-					.then(res => {
-						setItems(prev => res.data)
-						setIsLoading(false);
-					})
-			} catch (error) {
-				alert(error);
-				console.log(error)
-			}}
-		)()
-	 }, []);
+	// useEffect(() => {
+	// 	(async () => {
+	// 		try {
+	// 			setIsLoading(true);
+	//
+	// 			await axios.get(`${process.env.REACT_APP_API_URL}/items/`)
+	// 				.then(res => {
+	// 					setItems(prev => res.data)
+	// 					setIsLoading(false);
+	// 				})
+	// 		} catch (error) {
+	// 			alert(error);
+	// 			console.log(error)
+	// 		}}
+	// 	)()
+	//  }, []);
 
 
 	return (
 		<section className="home section">
+			{/*<button onClick={() => useDispatch()}></button>*/}
 			<div className="home__filter">
 				<Categories />
 				<Sort />
@@ -70,6 +80,7 @@ const Home = () => {
 				<h2 className="section__header-title">Все пиццы</h2>
 			</div>
 			<div className="cards-list">
+				{/*{status === 'pending' ? (*/}
 				{isLoading ? (
 					[...new Array(4)].map((_, index) => <CardSkeleton key={index} />)
 				) : (

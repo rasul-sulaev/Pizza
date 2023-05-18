@@ -32,11 +32,14 @@ export const filterSlice = createSlice({
 				state.sortOrder = 'desc';
 			}
 		},
+		setPaginationCountPages(state, action) {
+			state.paginationCountPages = action.payload;
+		},
 		setPaginationCurrentPage(state, action) {
 			state.paginationCurrentPage = action.payload;
 		}
 	}
 });
 
-export const {setSelectedCategoryId, setSort, setPaginationCurrentPage} = filterSlice.actions;
+export const {setSelectedCategoryId, setSort, setPaginationCountPages, setPaginationCurrentPage} = filterSlice.actions;
 export default filterSlice.reducer;
