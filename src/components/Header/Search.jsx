@@ -5,16 +5,15 @@ import {useDispatch} from "react-redux";
 import {setSearchValue} from "../../store/slices/filterSlice";
 import debounce from "lodash.debounce";
 
-
-
 const Search = () => {
 	const [value, setValue] = useState('');
 	const inputRef = useRef();
 	const dispatch = useDispatch();
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const updateSearchValue = useCallback(
 		debounce((value) => {
-			dispatch(setSearchValue(value))
+			dispatch(setSearchValue(value));
 		}, 500),
 		[]
 	)
