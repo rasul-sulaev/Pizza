@@ -1,15 +1,31 @@
 import {ReactComponent as IconSearch} from "../../assets/icons/search.svg";
 import {ReactComponent as IconTimes} from "../../assets/icons/times.svg";
-import {useRef} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {setSearchValue} from "../../store/slices/filterSlice"
+import {useCallback, useRef, useState} from "react";
+import {useDispatch} from "react-redux";
+import {setSearchValue} from "../../store/slices/filterSlice";
+import debounce from "lodash.debounce";
+
+
 
 const Search = () => {
-	const {searchValue} = useSelector(state => state.filter)
-	const dispatch = useDispatch();
+	const [value, setValue] = useState('');
 	const inputRef = useRef();
+	const dispatch = useDispatch();
+
+	const updateSearchValue = useCallback(
+		debounce((value) => {
+			dispatch(setSearchValue(value))
+		}, 500),
+		[]
+	)
+
+	const onChangeInputValue = (value) => {
+		setValue(value);
+		updateSearchValue(value);
+	}
 
 	const onClearInput = () => {
+		setValue('');
 		dispatch(setSearchValue(''));
 		inputRef.current.focus()
 	}
@@ -24,13 +40,13 @@ const Search = () => {
 			/>
 			<input
 				ref={inputRef}
-				value={searchValue}
-				onChange={(e) => dispatch(setSearchValue(e.target.value))}
+				value={value}
+				onChange={e => onChangeInputValue(e.target.value)}
 				className="header__search-input"
 				type="text"
 				placeholder="Поиск пиццы..."
 			/>
-			{searchValue && (
+			{value && (
 				<button className="header__search-btn-clear" title="Стереть" onClick={() => onClearInput()}>
 					<IconTimes
 						width={16}

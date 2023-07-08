@@ -7,6 +7,7 @@ import Pagination from "../components/Pagination";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchCategoryItems, fetchItemsByParams} from "../store/slices/itemsSlice";
 import {setPaginationCountPages} from "../store/slices/filterSlice";
+import ContentInfo from "../components/ContentInfo";
 
 const Home = () => {
 	const {status, data, dataByParameters: items} = useSelector(state => state.items);
@@ -19,7 +20,7 @@ const Home = () => {
 		const APIQuery = `${selectedCategoryId === 1 ? `${process.env.REACT_APP_API_URL}/items/` : `${process.env.REACT_APP_API_URL}/items/?category_id=${selectedCategoryId}`}`;
 
 		dispatch(fetchCategoryItems(APIQuery));
-	}, [selectedCategoryId]);
+	}, [dispatch, selectedCategoryId]);
 
 	useEffect(() => {
 		const APIQuery = searchValue ?
@@ -28,7 +29,7 @@ const Home = () => {
 
 		dispatch(fetchItemsByParams(APIQuery));
 		dispatch(setPaginationCountPages(Math.ceil(data.length / 4)));
-	}, [data, selectedCategoryId, sortBy, sortOrder, searchValue, paginationCurrentPage]);
+	}, [dispatch, data, selectedCategoryId, sortBy, sortOrder, searchValue, paginationCurrentPage]);
 
 
 	return (
@@ -58,6 +59,15 @@ const Home = () => {
 					)
 				)}
 			</div>
+
+			{(status === 'fulfilled' && !items.length) && (
+				<div className="content">
+					<ContentInfo
+						title={'Питс не осталось :('}
+						description={'Приходите в следующий раз, мы будем вас ждать...'}
+					/>
+				</div>
+			)}
 			<Pagination />
 		</section>
 	)
