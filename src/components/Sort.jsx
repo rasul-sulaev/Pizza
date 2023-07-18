@@ -1,9 +1,10 @@
 import {useDispatch, useSelector} from "react-redux";
 import {setSort} from "../store/slices/filterSlice"
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 const Sort = () => {
 	const [selectOpen, setSelectOpen] = useState(false);
+	const sortSelectRef = useRef();
 
 	const {sort, selectedOptionSort, sortOrder} = useSelector(state => state.filter);
 	const dispatch = useDispatch();
@@ -14,8 +15,23 @@ const Sort = () => {
 		setSelectOpen(false);
 	}
 
+	/** Закрытие селектора при клике за его областью **/
+	useEffect(() => {
+		const handleClickOutside = (e) => {
+			if (selectOpen && !e.composedPath().includes(sortSelectRef.current)) {
+				setSelectOpen(false);
+			}
+		}
+
+		// Вызываем функцию handleClickOutside при клике на любое место
+		document.addEventListener('click', handleClickOutside);
+
+		// Удалить функцию handleClickOutside при unMount
+		return () => document.removeEventListener('click', handleClickOutside)
+	}, [])
+
 	return (
-		<div className="sort">
+		<div ref={sortSelectRef} className="sort">
 			<p className="sort__title">Сортировка: <span
 				className={`sort__current ${sortOrder === 'desc' ? 'sort__current_desc' : 'sort__current_asc'}`}
 				onClick={() => setSelectOpen(!selectOpen)}
