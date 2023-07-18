@@ -1,35 +1,77 @@
-import {useEffect} from "react";
+import {useEffect, useRef} from "react";
 import Categories from "../components/Categories";
 import Card from "../components/Card/Card";
 import Sort from "../components/Sort";
 import CardSkeleton from "../components/Card/CardSkeleton";
-import Pagination from "../components/Pagination";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchCategoryItems, fetchItemsByParams} from "../store/slices/itemsSlice";
-import {setPaginationCountPages} from "../store/slices/filterSlice";
-import ContentInfo from "../components/ContentInfo";
+import {fetchItemsByParams} from "../store/slices/itemsSlice";
+import {setFilters} from "../store/slices/filterSlice";
+// import ContentInfo from "../components/ContentInfo";
+import {useSearchParams} from "react-router-dom";
+
+
 
 const Home = () => {
-	const {status, data, dataByParameters: items} = useSelector(state => state.items);
-	const {selectedCategoryId, sortBy, sortOrder, searchValue, paginationCurrentPage} = useSelector(state => state.filter);
+	const isChangedFilters = useRef(false);
+	const {status, dataByParameters: items} = useSelector(state => state.items);
+	const {sort, selectedCategoryId, selectedOptionSort , sortOrder, searchValue} = useSelector(state => state.filter);
 	const dispatch = useDispatch();
+	const [searchParams, setSearchParams] = useSearchParams('');
+	let APIQuery = useRef('');
 
-	console.log(Math.ceil(data.length / 4));
-
-	useEffect(() => {
-		const APIQuery = `${selectedCategoryId === 1 ? `${process.env.REACT_APP_API_URL}/items/` : `${process.env.REACT_APP_API_URL}/items/?category_id=${selectedCategoryId}`}`;
-
-		dispatch(fetchCategoryItems(APIQuery));
-	}, [dispatch, selectedCategoryId]);
 
 	useEffect(() => {
-		const APIQuery = searchValue ?
-			`${process.env.REACT_APP_API_URL}/items/?name=${searchValue}&category_id=${selectedCategoryId === 1 ? '' : selectedCategoryId}&sortBy=${sortBy}&order=${sortOrder}` :
-			`${process.env.REACT_APP_API_URL}/items/?category_id=${selectedCategoryId === 1 ? '*' : selectedCategoryId}&sortBy=${sortBy}&order=${sortOrder}&page=${paginationCurrentPage}&limit=4`;
+		// Если изменили параметры
+		if (isChangedFilters.current) {
+			if (searchValue) {
+				setSearchParams({
+					name: searchValue,
+					category_id: selectedCategoryId === 1 ? '*' : selectedCategoryId,
+					sortBy: selectedOptionSort.value,
+					order: sortOrder
+				})
+			} else {
+				setSearchParams({
+					category_id: selectedCategoryId === 1 ? '*' : selectedCategoryId,
+					sortBy: selectedOptionSort.value,
+					order: sortOrder,
+				})
+			}
+		}
 
-		dispatch(fetchItemsByParams(APIQuery));
-		dispatch(setPaginationCountPages(Math.ceil(data.length / 4)));
-	}, [dispatch, data, selectedCategoryId, sortBy, sortOrder, searchValue, paginationCurrentPage]);
+
+		// Если не были изменены фильтры
+		if (!isChangedFilters.current && window.location.search) {
+			let params = '';
+			for (let param of searchParams) {
+				params += `${param[0]}=${param[1]}&`;
+			}
+
+			dispatch(setFilters({
+				name: searchParams.get('name') || '',
+				category_id: searchParams.get('category_id') === '*' ? 1 : Number(searchParams.get('category_id')),
+				selectedOptionSort: sort.find(item => item.value === searchParams.get('sortBy')),
+				order: searchParams.get('order')
+			}))
+
+			APIQuery.current = `${process.env.REACT_APP_API_URL}/items/?${params}`;
+		}
+		// Если не были изменены фильтры и нет параметров в URL строке
+		else if (!isChangedFilters.current && !window.location.search) {
+			APIQuery.current = `${process.env.REACT_APP_API_URL}/items/`;
+		}
+		// Если были изменены фильтры и есть параметры в URL строке
+		else {
+			if (searchValue) {
+				APIQuery.current = `${process.env.REACT_APP_API_URL}/items/?name=${searchValue}&category_id=${selectedCategoryId === 1 ? '*' : selectedCategoryId}&sortBy=${selectedOptionSort.value}&order=${sortOrder}`
+			} else {
+				APIQuery.current = `${process.env.REACT_APP_API_URL}/items/?category_id=${selectedCategoryId === 1 ? '*' : selectedCategoryId}&sortBy=${selectedOptionSort.value}&order=${sortOrder}`;
+			}
+		}
+
+		isChangedFilters.current = true;
+		dispatch(fetchItemsByParams(APIQuery.current));
+	}, [selectedCategoryId, selectedOptionSort, sortOrder, searchValue])
 
 
 	return (
@@ -60,15 +102,16 @@ const Home = () => {
 				)}
 			</div>
 
-			{(status === 'fulfilled' && !items.length) && (
-				<div className="content">
-					<ContentInfo
-						title={'Питс не осталось :('}
-						description={'Приходите в следующий раз, мы будем вас ждать...'}
-					/>
-				</div>
-			)}
-			<Pagination />
+			{/*{(status === 'fulfilled' && !items.length) && (*/}
+			{/*	<div className="content">*/}
+			{/*		<ContentInfo*/}
+			{/*			title={'Питс не осталось :('}*/}
+			{/*			description={'Приходите в следующий раз, мы будем вас ждать...'}*/}
+			{/*		/>*/}
+			{/*	</div>*/}
+			{/*)}*/}
+			{/*{items && <Pagination />}*/}
+
 		</section>
 	)
 }

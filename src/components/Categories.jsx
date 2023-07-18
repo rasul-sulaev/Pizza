@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {setPaginationCurrentPage, setSelectedCategoryId} from "../store/slices/filterSlice";
+import {setSelectedCategoryId} from "../store/slices/filterSlice";
 
 const Categories = () => {
 	const {categories, selectedCategoryId} = useSelector(state => state.filter);
@@ -7,7 +7,6 @@ const Categories = () => {
 
 	const onSelectCategory = (categoryId) => {
 		dispatch(setSelectedCategoryId(categoryId))
-		dispatch(setPaginationCurrentPage(1));
 	}
 
 	return (

@@ -8,13 +8,9 @@ const initialState = {
 
 	sort,
 	selectedOptionSort: sort[0],
-	sortBy: sort[0].value,
 	sortOrder: 'desc',
 
 	searchValue: '',
-
-	paginationCountPages: 0,
-	paginationCurrentPage: 1,
 }
 
 export const filterSlice = createSlice({
@@ -27,25 +23,24 @@ export const filterSlice = createSlice({
 		setSort(state, action) {
 			state.selectedOptionSort = action.payload;
 
-			if (state.sortBy === action.payload.value) {
+			if (state.selectedOptionSort.value === action.payload.value) {
 				state.sortOrder = state.sortOrder === 'desc' ? 'asc' : 'desc';
 			} else {
-				state.sortBy = action.payload.value;
+				state.selectedOptionSort.value = action.payload.value;
 				state.sortOrder = 'desc';
 			}
 		},
-		setPaginationCountPages(state, action) {
-			state.paginationCountPages = action.payload;
-		},
-		setPaginationCurrentPage(state, action) {
-			state.paginationCurrentPage = action.payload;
-		},
 		setSearchValue(state, action) {
-			console.log(action.payload)
 			state.searchValue = action.payload;
+		},
+		setFilters(state, action) {
+			state.selectedCategoryId = action.payload.category_id;
+			state.selectedOptionSort = action.payload.selectedOptionSort;
+			state.sortOrder = action.payload.order;
+			state.searchValue = action.payload.name;
 		}
 	}
 });
 
-export const {setSelectedCategoryId, setSort, setPaginationCountPages, setPaginationCurrentPage, setSearchValue} = filterSlice.actions;
+export const {setSelectedCategoryId, setSort, setSearchValue, setFilters} = filterSlice.actions;
 export default filterSlice.reducer;
